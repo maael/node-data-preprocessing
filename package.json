@@ -1,6 +1,6 @@
 {
   "name": "node-data-preprocessing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A node package for data preprocessing.",
   "main": "index.js",
   "scripts": {
