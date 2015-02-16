@@ -1,4 +1,7 @@
 # node-data-preprocessing
+[![Build Status](https://img.shields.io/travis/maael/node-data-preprocessing.svg)](https://travis-ci.org/maael/node-data-preprocessing)
+[![Code Climate](https://img.shields.io/codeclimate/github/maael/node-data-preprocessing.svg)](https://codeclimate.com/github/maael/node-data-preprocessing)
+
 A node package for data preprocessing.
 
 The package exposes the individual steps, as well as one to the entire process.
