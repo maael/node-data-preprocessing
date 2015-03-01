@@ -85,6 +85,9 @@ var options = {
 ##### standardisationMethod
 **string -** Can be ```default```, ```normal``` or ```ss``` (Sum of Squares).
 
+##### ignore
+**Array -** of integers representing columns of the data to ignore while standardising. They will retain their non-standardised values.
+
 ### divide
 ```js
 var divided = process.divide(options, data);
