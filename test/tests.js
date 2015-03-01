@@ -24,8 +24,9 @@ describe('Coursework', function() {
     });
     describe('#cleanse', function() {
       it('should cleanse data of invalid types', function() {
-        var formats = ['number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'];
-        cleansed = process.cleanse({formats: formats}, extracted);
+        var formats = ['number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'],
+            ranges = [{ 'greaterOrEqual': 0 }, {}, {}, {}, { 'greaterOrEqual': 0 }, {}, {}, {}, {}];
+        cleansed = process.cleanse({formats: formats, ranges: ranges}, extracted);
         for(var i = 0; i < cleansed.length; i++) {
           for(var j = 0; j < cleansed[i].length; j++) {
             cleansed[i][j].should.be.a(formats[i]);
@@ -73,7 +74,7 @@ describe('Coursework', function() {
         for(var i = 0; i < divided.length; i++) {
           divided[i].should.be.length(9);
           for(var j = 0; j < divided[i].length; j++) {
-            divided[i][j].length.should.be.closeTo((csv.length * (splits[i]/100)), 1);
+            divided[i][j].length.should.be.closeTo((csv.length * (splits[i]/100)), 2);
           }
         }
       });
@@ -82,11 +83,12 @@ describe('Coursework', function() {
       it('should correctly perform the entire data preprocessing', function() {
         var splits = [60, 20, 20],
           formats = ['number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'],
-          test = process.process({path: 'data/CWData.csv', formats: formats});
+          ranges = [{ 'greaterOrEqual': 0 }, {}, {}, {}, { 'greaterOrEqual': 0 }, {}, {}, {}, {}],
+          test = process.process({path: 'data/CWData.csv', formats: formats, ranges: ranges});
         test.should.be.length(splits.length);
         for(var i = 0; i < test.length; i++) {
           for(var j = 0; j < test.length; j++) {
-            test[i][j].length.should.be.closeTo((csv.length * (splits[i]/100)), 1);
+            test[i][j].length.should.be.closeTo((csv.length * (splits[i]/100)), 2);
           }
         }
         for(var i = 0; i < test.length; i++) {

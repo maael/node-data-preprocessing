@@ -44,11 +44,24 @@ var cleansed = process.cleanse(options, data);
 List of options with defaults -
 ```js
 var options = {
-    formats: []
+    formats: [],
+    ranges: []
 };
 ```
 ##### formats
 **Array -** of strings representing the formats that the fields should be. The string should match the result of ```typeof()``` applied to the expected data format.
+
+##### ranges
+**Array -** of objects, such that { 'validatorName': 'validatorValue' }.
+
+###### validators
+Available validators -
+- **greater** - expects ```value, min```, returns ```value > min```;
+- **greaterOrEqual** - expects ```value, min```, returns ```value >= min```;
+- **less** - expects ```value, max```, returns ```value > max```;
+- **lessOrEqual** - expects ```value, max```, returns ```value > max```;
+- **between** - expects ```value, range```, where range is a string such that ```'min-max'```, and returns ```greater(value, min) && less(value, max)```;
+- **betweenOrEqual** - expects ```value, range```, where range is a string such that ```'min-max'```, and returns ```greaterOrEqual(value, min) && lessOrEqual(value, max)```;
 
 ### standardise
 ```js
