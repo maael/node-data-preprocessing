@@ -1,13 +1,13 @@
 var process = require('..'),
   chai = require('chai'),
   should = chai.should();
-describe('Coursework', function() {
-  describe('#process', function() {
+describe('Normal Pre-processing', function() {
+  describe('Processes', function() {
     var csv, extracted, cleansed, standardised, processed;
     describe('#csvParser', function() {
       it('should extract csv from a file correctly correctly', function() {
         var fs = require('fs'),
-          source = fs.readFileSync('data/CWData.csv').toString();
+            source = fs.readFileSync('data/CWData.csv').toString();
         csv = process.csvParser(source);
         csv.should.be.length(598);
         csv.should.be.a('array');
@@ -114,6 +114,29 @@ describe('Coursework', function() {
               }
             }
           }
+        }
+      });
+    });
+  });
+});
+describe('Big Integer Pre-processing', function() {
+  describe('Processes', function() {
+    var csv, extracted, cleansed, standardised, processed;
+    describe('#csvParser', function() {
+      it('should extract csv from a file correctly correctly', function() {
+        var fs = require('fs'),
+          source = fs.readFileSync('data/bigInt.csv').toString();
+        csv = process.csvParser(source);
+        csv.should.be.length(2);
+        csv.should.be.a('array');
+      });
+    });
+    describe('#extraction', function() {
+      it('should return csv as array', function() {
+        extracted = process.extract({}, csv);
+        extracted.should.be.an('array');
+        for(var i = 0; i < extracted.length; i++) {
+          extracted[i].should.be.length(1);
         }
       });
     });
