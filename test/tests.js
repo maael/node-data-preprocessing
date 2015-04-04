@@ -127,9 +127,8 @@ describe('Big Integer Pre-processing', function() {
         var fs = require('fs'),
           source = fs.readFileSync('data/bigInt.csv').toString();
         csv = process.csvParser(source);
-        csv.should.be.length(2);
+        csv.should.be.length(4);
         csv.should.be.a('array');
-        console.log(csv);
       });
     });
     describe('#extraction', function() {
@@ -137,21 +136,31 @@ describe('Big Integer Pre-processing', function() {
         extracted = process.extract({}, csv);
         extracted.should.be.an('array');
         for(var i = 0; i < extracted.length; i++) {
-          extracted[i].should.be.length(1);
+          extracted[i].should.be.length(3);
         }
       });
     });
     describe('#cleanse', function() {
       it('should cleanse data of invalid types', function() {
         var formats = ['object', 'number', 'number'],
-            ranges = [{ 'greaterOrEqual': 0 }, { 'betweenOrEqual': '0-2' }, { 'betweenOrEqual': '0-2' }];
+            ranges = [{ 'greaterOrEqual': 0 }, { 'betweenOrEqual': '0-100' }, { 'betweenOrEqual': '0-100' }];
         cleansed = process.cleanse({formats: formats, ranges: ranges}, extracted);
         for(var i = 0; i < cleansed.length; i++) {
           for(var j = 0; j < cleansed[i].length; j++) {
             cleansed[i][j].should.be.a(formats[i]);
           }
         }
-        console.log(cleansed);
+      });
+    });
+    describe('#standardisation', function() {
+      it('should standardise between 0.1-0.9 with default method', function() {
+        var formats = ['object', 'number', 'number'];
+        standardised = process.standardise({formats: formats}, cleansed);
+        for(var i = 0; i < standardised.length; i++) {
+          for(var j = 0; j < standardised[i].length; j++) {
+            standardised[i][j].should.be.within(0.1, 0.9);
+          }
+        }
       });
     });
   });
